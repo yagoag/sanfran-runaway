@@ -7,7 +7,7 @@ export const GameScreen = Styled.div`
   width: 100vw;
   background-image: url(${scenario1});
   
-  &.two {
+  &.moving {
     background-image: url(${scenario2});
   }
 
@@ -29,5 +29,57 @@ export const Car = Styled.img`
   &.right {
   left: 70vw;
   transform: skew(20deg);
+  }
+`;
+
+export const PauseIndicator = Styled.div`
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  text-shadow: 2px 2px 0 black;
+  color: white;
+  font-size: 32px;
+  letter-spacing: -0.5em;
+`;
+
+export const LapIndicator = Styled.div`
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  text-shadow: 2px 2px 0 black;
+  color: white;
+  font-size: 32px;
+`;
+
+export const TurboIndicator = Styled.div`
+  position: absolute;
+  right: 24px;
+  bottom: 96px;
+  background-color: #0080f899;
+  width: 64px;
+  height: 300px;
+
+  &::before {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    background-color: #040091;
+    width: 64px;
+    height: ${props => `${props.amount * 3}px`};
+  }
+
+  &::after {
+    content: 'Turbo';
+    position: absolute;
+    top: 308px;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: ${props =>
+      props.amount >= 100 ? '#040091' : '#0080f899'};
+    font-size: 10px;
+    color: ${props => (props.amount >= 100 ? '#ffffff' : '#cccccc')};
   }
 `;
