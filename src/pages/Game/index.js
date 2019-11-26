@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import car from '../../assets/images/car.png';
 import NameInput from '../../components/NameInput';
-import {
-  Car,
-  GameScreen,
-  PauseIndicator,
-  LapIndicator,
-  TurboIndicator,
-} from './styles';
+import GameInfo from '../../components/GameInfo';
+import { Car, GameScreen, TurboIndicator, Obstacle } from './styles';
+import { setGameStatus } from '../../store/actions';
+import { NOT_STARTED, PAUSED, RUNNING, FINISHED } from '../../store/gameStatus';
+import EndGame from '../../components/EndGame';
 
 const Game = () => {
-  const [raceStarted, setRaceStarted] = useState(false);
+  const dispatch = useDispatch();
+  const status = useSelector(state => state.gameStatus);
+
   const [position, setPosition] = useState('s');
-  const [paused, setPaused] = useState(true);
   const [moving, setMoving] = useState(false);
   const [metersRun, setMetersRun] = useState(0);
   const [turboFuel, setTurboFuel] = useState(0);
@@ -28,11 +28,11 @@ const Game = () => {
         setTurboTime(15);
       }
     },
-    escape: () => setPaused(!paused),
+    escape: () => dispatch(setGameStatus(status === PAUSED ? RUNNING : PAUSED)),
   };
 
   useEffect(() => {
-    if (raceStarted) {
+    if (status === RUNNING || status === PAUSED) {
       const handleKeydown = event => {
         const act = actions[event.key.toLowerCase()];
         if (typeof act === 'function') {
@@ -41,10 +41,10 @@ const Game = () => {
       };
       document.addEventListener('keydown', handleKeydown);
     }
-  }, [paused, actions, raceStarted]);
+  }, [status, actions]);
 
   useEffect(() => {
-    if (!paused) {
+    if (status === RUNNING) {
       const changeBg = setInterval(
         () => {
           setMoving(!moving);
@@ -64,7 +64,7 @@ const Game = () => {
     }
   }, [
     moving,
-    paused,
+    status,
     metersRun,
     turboTime,
     setTurboTime,
@@ -74,24 +74,22 @@ const Game = () => {
 
   useEffect(() => {
     if (Math.floor(metersRun / 5000) > 4) {
-      setPaused(true);
-      // setFinished(true);
+      dispatch(setGameStatus(FINISHED));
+    }
+  }, [metersRun, dispatch]);
     }
   });
 
   return (
-    <GameScreen className={moving ? 'moving' : ''}>
-      {paused && <PauseIndicator>||</PauseIndicator>}
-      {raceStarted && !paused && (
-        <LapIndicator>Volta {Math.floor(metersRun / 5000) + 1}/5</LapIndicator>
+    <GameScreen moving={moving}>
+      {(status === PAUSED || status === RUNNING) && (
+        <GameInfo metersRun={metersRun} />
       )}
       <TurboIndicator amount={turboFuel} />
-      {!raceStarted && (
-        <NameInput
-          startRace={() => {
-            setPaused(false);
-            setRaceStarted(true);
-          }}
+      {status === NOT_STARTED && (
+        <NameInput startRace={() => dispatch(setGameStatus(RUNNING))} />
+      )}
+      {status === FINISHED && <EndGame />}
         />
       )}
       <Car

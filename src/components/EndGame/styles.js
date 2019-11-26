@@ -1,6 +1,6 @@
 import Styled from 'styled-components';
 
-export const NameDialog = Styled.div`
+export const EndModal = Styled.div`
   background-color: #ffffffdd;
   width: 300px;
   position: absolute;
@@ -9,18 +9,6 @@ export const NameDialog = Styled.div`
   padding: 30px;
   text-align: center;
 
-  & input[type='text'] {
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid #040091;
-    width: 100%;
-    padding: 8px;
-    margin: 24px 0;
-    outline: none;
-    font-size: 18px;
-    text-align: center;
-  }
-
   & button {
     width: 100%;
     background-color: #040091;
@@ -28,4 +16,8 @@ export const NameDialog = Styled.div`
     padding: 8px;
     outline: none;
   }
+`;
+
+export const Message = Styled.div`
+  padding: 24px;
 `;

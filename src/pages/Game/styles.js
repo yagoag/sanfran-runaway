@@ -5,24 +5,19 @@ import scenario2 from '../../assets/images/scenario-2.png';
 export const GameScreen = Styled.div`
   height: 100vh;
   width: 100vw;
-  background-image: url(${scenario1});
-  
-  &.moving {
-    background-image: url(${scenario2});
-  }
-
+  background-image: url(${props => (props.moving ? scenario2 : scenario1)});
   background-size: 100% 100%;
   background-repeat: no-repeat;
 `;
 
 export const Car = Styled.img`
-  width: 25vw;
+  width: 15vw;
   position: absolute;
   bottom: 10px;
-  left: 35vw;
+  left: 40vw;
 
   &.left {
-  left: 0vw;
+  left: 10vw;
   transform: skew(-20deg);
   }
 
@@ -30,25 +25,6 @@ export const Car = Styled.img`
   left: 70vw;
   transform: skew(20deg);
   }
-`;
-
-export const PauseIndicator = Styled.div`
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  text-shadow: 2px 2px 0 black;
-  color: white;
-  font-size: 32px;
-  letter-spacing: -0.5em;
-`;
-
-export const LapIndicator = Styled.div`
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  text-shadow: 2px 2px 0 black;
-  color: white;
-  font-size: 32px;
 `;
 
 export const TurboIndicator = Styled.div`
