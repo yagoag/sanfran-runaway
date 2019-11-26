@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import car from '../../assets/images/car.png';
+import rock from '../../assets/images/rock-pile.png';
 import NameInput from '../../components/NameInput';
 import GameInfo from '../../components/GameInfo';
 import { Car, GameScreen, TurboIndicator, Obstacle } from './styles';
@@ -12,16 +13,17 @@ const Game = () => {
   const dispatch = useDispatch();
   const status = useSelector(state => state.gameStatus);
 
-  const [position, setPosition] = useState('s');
+  const [carLane, setCarLane] = useState('s');
   const [moving, setMoving] = useState(false);
   const [metersRun, setMetersRun] = useState(0);
   const [turboFuel, setTurboFuel] = useState(0);
   const [turboTime, setTurboTime] = useState(0);
+  const [obstacles, setObstacles] = useState([]);
 
   const actions = {
-    a: () => setPosition('a'),
-    s: () => setPosition('s'),
-    d: () => setPosition('d'),
+    a: () => setCarLane(0),
+    s: () => setCarLane(1),
+    d: () => setCarLane(2),
     t: () => {
       if (turboFuel >= 100) {
         setTurboFuel(0);
@@ -77,8 +79,19 @@ const Game = () => {
       dispatch(setGameStatus(FINISHED));
     }
   }, [metersRun, dispatch]);
+
+  useEffect(() => {
+    if (status === NOT_STARTED) {
+      const newObstacles = [];
+      for (let i = 0; i < 20; i++) {
+        // max i can be later increased to make for difficult
+        const location = Math.floor(1500 + Math.random() * 23500);
+        const lane = Math.floor(Math.random() * 3);
+        newObstacles.push({ location, lane });
+      }
+      setObstacles(newObstacles);
     }
-  });
+  }, [status, setObstacles]);
 
   return (
     <GameScreen moving={moving}>
@@ -90,11 +103,17 @@ const Game = () => {
         <NameInput startRace={() => dispatch(setGameStatus(RUNNING))} />
       )}
       {status === FINISHED && <EndGame />}
+      {obstacles.map((obstacle, index) => (
+        <Obstacle
+          key={index}
+          src={rock}
+          {...obstacle}
+          carPosition={metersRun}
         />
-      )}
+      ))}
       <Car
         src={car}
-        className={position === 'a' ? 'left' : position === 'd' ? 'right' : ''}
+        className={carLane === 0 ? 'left' : carLane === 2 ? 'right' : ''}
       />
     </GameScreen>
   );
