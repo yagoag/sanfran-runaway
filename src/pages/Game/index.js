@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import car from '../../assets/images/car.png';
 import rock from '../../assets/images/rock-pile.png';
@@ -6,14 +6,20 @@ import NameInput from '../../components/NameInput';
 import GameInfo from '../../components/GameInfo';
 import { Car, GameScreen, TurboIndicator, Obstacle } from './styles';
 import { setGameStatus } from '../../store/actions';
-import { NOT_STARTED, PAUSED, RUNNING, FINISHED } from '../../store/gameStatus';
+import {
+  NOT_STARTED,
+  PAUSED,
+  RUNNING,
+  FINISHED,
+  CRASHED,
+} from '../../store/gameStatus';
 import EndGame from '../../components/EndGame';
 
 const Game = () => {
   const dispatch = useDispatch();
   const status = useSelector(state => state.gameStatus);
 
-  const [carLane, setCarLane] = useState('s');
+  const [carLane, setCarLane] = useState(1);
   const [moving, setMoving] = useState(false);
   const [metersRun, setMetersRun] = useState(0);
   const [turboFuel, setTurboFuel] = useState(0);
@@ -30,19 +36,24 @@ const Game = () => {
         setTurboTime(15);
       }
     },
-    escape: () => dispatch(setGameStatus(status === PAUSED ? RUNNING : PAUSED)),
+    escape: () =>
+      (status === PAUSED || status === RUNNING) &&
+      dispatch(setGameStatus(status === PAUSED ? RUNNING : PAUSED)),
   };
 
   useEffect(() => {
-    if (status === RUNNING || status === PAUSED) {
-      const handleKeydown = event => {
+    const handleKeydown = event => {
+      if (status === RUNNING || status === PAUSED) {
         const act = actions[event.key.toLowerCase()];
         if (typeof act === 'function') {
           act();
         }
-      };
-      document.addEventListener('keydown', handleKeydown);
-    }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeydown);
+
+    return () => document.removeEventListener('keydown', handleKeydown);
   }, [status, actions]);
 
   useEffect(() => {
@@ -56,6 +67,13 @@ const Game = () => {
           if (turboTime > 0) {
             setTurboTime(turboTime - 1);
           }
+
+          obstacles.forEach(obst => {
+            const pos = Math.floor((obst.location - metersRun) / 100);
+            if (pos <= 0 && pos >= -2 && obst.lane === carLane) {
+              dispatch(setGameStatus(CRASHED));
+            }
+          });
         },
         turboTime > 0 ? 100 : 300,
       );
@@ -72,6 +90,9 @@ const Game = () => {
     setTurboTime,
     turboFuel,
     setTurboFuel,
+    obstacles,
+    carLane,
+    dispatch,
   ]);
 
   useEffect(() => {
@@ -90,6 +111,11 @@ const Game = () => {
         newObstacles.push({ location, lane });
       }
       setObstacles(newObstacles);
+
+      setCarLane(1);
+      setMetersRun(0);
+      setTurboFuel(0);
+      setTurboTime(0);
     }
   }, [status, setObstacles]);
 
@@ -102,7 +128,7 @@ const Game = () => {
       {status === NOT_STARTED && (
         <NameInput startRace={() => dispatch(setGameStatus(RUNNING))} />
       )}
-      {status === FINISHED && <EndGame />}
+      {(status === FINISHED || status === CRASHED) && <EndGame />}
       {obstacles.map((obstacle, index) => (
         <Obstacle
           key={index}
@@ -119,4 +145,4 @@ const Game = () => {
   );
 };
 
-export default Game;
+export default memo(Game);

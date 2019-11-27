@@ -70,14 +70,7 @@ export const Obstacle = Styled.img.attrs(props => ({
       : '0'};
   height: auto;
   position: absolute;
-  left: ${props => {
-    if (props.position <= 6 && props.position >= -2) {
-      console.log(props.lane);
-      console.log(props.position);
-      console.log(lanePositionMap[props.lane][props.position]);
-    }
-    return `${lanePositionMap[props.lane][props.position]}vw`;
-  }};
+  left: ${props => `${lanePositionMap[props.lane][props.position]}vw`};
   top: ${props =>
     props.position <= 6 && props.position >= -2
       ? `${80 - props.position * 5}vh`
