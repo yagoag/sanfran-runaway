@@ -29,35 +29,38 @@ export const Car = Styled.img`
 
 export const TurboIndicator = Styled.div`
   position: absolute;
-  right: 24px;
-  bottom: 96px;
+  left: 24px;
+  top: 24px;
   background-color: #0080f899;
-  width: 64px;
-  height: 300px;
-  z-index: 999;
+  width: 300px;
+  height: 32px;
+  z-index: 990;
 
   &::before {
-    position: absolute;
     content: '';
-    bottom: 0;
+    position: absolute;
+    display: flex;
+    align-items: center;
     background-color: #040091;
-    width: 64px;
-    height: ${props => `${props.amount * 3}px`};
+    height: 32px;
+    width: ${props => `${props.amount * 3}px`};
+    font-size: 10px;
+    color: ${props => (props.amount >= 100 ? '#ffffff' : '#cccccc')};
   }
 
   &::after {
     content: 'Turbo';
     position: absolute;
-    top: 308px;
-    width: 64px;
-    height: 64px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: ${props =>
-      props.amount >= 100 ? '#040091' : '#0080f899'};
+    left: 12px;
+    height: 32px;
     font-size: 10px;
     color: ${props => (props.amount >= 100 ? '#ffffff' : '#cccccc')};
+  }
+
+  @media screen and (max-width: 639px) {
+    top: 128px;
   }
 `;
 
@@ -66,6 +69,10 @@ const ControlButton = Styled.button`
   bottom: 0;
   width: 33vw;
   height: 33vh;
+  z-index: 999;
+  background-color: transparent;
+  border: none;
+  outline: none;
 `;
 
 export const LaneControlButton = Styled(ControlButton)`
