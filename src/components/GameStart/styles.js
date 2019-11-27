@@ -9,18 +9,6 @@ export const NameDialog = Styled.div`
   padding: 30px;
   text-align: center;
 
-  & input[type='text'] {
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid #040091;
-    width: 100%;
-    padding: 8px;
-    margin: 24px 0;
-    outline: none;
-    font-size: 18px;
-    text-align: center;
-  }
-
   & button {
     width: 100%;
     background-color: #040091;
@@ -28,6 +16,28 @@ export const NameDialog = Styled.div`
     padding: 8px;
     outline: none;
   }
+`;
+
+export const NameInput = Styled.input.attrs({ type: 'text' })`
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid;
+  border-color: ${props => (props.error ? '#cf0000' : '#040091')};
+  width: 100%;
+  padding: 8px;
+  margin: 24px 0;
+  outline: none;
+  font-size: 18px;
+  text-align: center;
+`;
+
+export const NameInputError = Styled.div`
+  color: #cf0000;
+  font-size: 10px;
+  width: 100%;
+  text-align: left;
+  margin-top: -22px;
+  margin-bottom: 12px;
 `;
 
 export const Countdown = Styled.div`

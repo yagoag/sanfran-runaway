@@ -2,14 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPlayerName, setGameStatus } from '../../store/actions';
 import { RUNNING } from '../../store/gameStatus';
-import { NameDialog, Countdown } from './styles';
+import { NameDialog, NameInput, NameInputError, Countdown } from './styles';
 
 const GameStart = () => {
   const dispatch = useDispatch();
   const name = useSelector(state => state.playerName);
   const [countdownNum, setCountdownNum] = useState(null);
+  const [nameError, setNameError] = useState(false);
+
   const startCountdown = () => {
-    setCountdownNum(3);
+    if (name !== '') {
+      setNameError(false);
+      setCountdownNum(3);
+    } else {
+      setNameError(true);
+    }
   };
 
   useEffect(() => {
@@ -28,12 +35,15 @@ const GameStart = () => {
         <Countdown>{countdownNum}</Countdown>
       ) : (
         <NameDialog>
-          <input
-            type="text"
+          <NameInput
             placeholder="Nome"
             value={name}
             onChange={e => dispatch(setPlayerName(e.target.value))}
+            error={nameError}
           />
+          {nameError && (
+            <NameInputError>Você precisa inserir seu nome</NameInputError>
+          )}
           <button onClick={startCountdown}>Iniciar Corrida</button>
         </NameDialog>
       )}
