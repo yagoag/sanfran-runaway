@@ -8,6 +8,7 @@ export const NameDialog = Styled.div`
   left: calc(50vw - 180px);
   padding: 30px;
   text-align: center;
+  z-index: 998;
 
   & button {
     width: 100%;
@@ -52,4 +53,16 @@ export const Countdown = Styled.div`
   text-shadow: 2px 2px 0 black;
   color: white;
   font-size: 48px;
+`;
+
+export const TutorialButton = Styled.button`
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 200px;
+  padding: 8px;
+  background-color: #c7c7c7;
+  border: none;
+  outline: none;
+  z-index: 999;
 `;

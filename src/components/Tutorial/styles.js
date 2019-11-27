@@ -1,0 +1,48 @@
+import Styled from 'styled-components';
+
+export const TutorialDialog = Styled.div`
+  background-color: #ffffffdd;
+  width: 330px;
+  height: 300px;
+  position: absolute;
+  top: calc(50vh - 180px);
+  left: calc(50vw - 180px);
+  padding: 30px 15px;
+  text-align: center;
+  z-index: 998;
+
+  & button {
+    width: calc(100% - 24px);
+    background-color: #040091;
+    color: #ffffff;
+    padding: 8px;
+    margin: 0 12px;
+    outline: none;
+  }
+`;
+
+export const TutorialContainer = Styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 24px;
+`;
+
+export const TutorialContent = Styled.div`
+  flex: 1;
+`;
+
+export const Arrow = Styled.div`
+  display: flex;
+  align-items: center;
+  padding: 8px;
+`;
+
+export const ArrowSpacer = Styled.div`
+  width: 32px;
+`;
+
+export const Key = Styled.span`
+  background-color: #c7c7c7;
+  box-shadow: 2px 2px 0 black;
+  padding: 4px 6px;
+`;

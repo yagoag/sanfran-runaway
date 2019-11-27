@@ -8,6 +8,7 @@ export const EndModal = Styled.div`
   left: calc(50vw - 180px);
   padding: 30px;
   text-align: center;
+  z-index: 998;
 
   & button {
     width: 100%;

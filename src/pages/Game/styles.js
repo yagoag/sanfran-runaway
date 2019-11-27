@@ -69,7 +69,7 @@ const ControlButton = Styled.button`
   bottom: 0;
   width: 33vw;
   height: 33vh;
-  z-index: 999;
+  z-index: 995;
   background-color: transparent;
   border: none;
   outline: none;
