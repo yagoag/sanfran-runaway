@@ -17,6 +17,7 @@ export const TutorialDialog = Styled.div`
     color: #ffffff;
     padding: 8px;
     margin: 0 12px;
+    border: none;
     outline: none;
   }
 `;
@@ -35,6 +36,7 @@ export const Arrow = Styled.div`
   display: flex;
   align-items: center;
   padding: 8px;
+  cursor: pointer;
 `;
 
 export const ArrowSpacer = Styled.div`

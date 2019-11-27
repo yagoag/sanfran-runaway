@@ -15,6 +15,7 @@ export const EndModal = Styled.div`
     background-color: #040091;
     color: #ffffff;
     padding: 8px;
+    border: none;
     outline: none;
   }
 `;
