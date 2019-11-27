@@ -11,7 +11,7 @@ const EndGame = () => {
   return (
     <EndModal>
       <Message>
-        {status === FINISHED ? 'Você chegou!' : 'Você bateu :('}
+        {status === FINISHED ? 'Você chegou!' : 'Você atropelou o hipster! :('}
       </Message>
       <button onClick={() => dispatch(setGameStatus(NOT_STARTED))}>
         Jogar Novamente

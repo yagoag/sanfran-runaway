@@ -22,6 +22,15 @@ const Tutorial = ({ dismiss }) => {
         <TutorialContent>
           {page === 1 && (
             <>
+              <p>
+                Se você conhece um pouco sobre São Francisco sabe que a cidade é
+                cheia de hipsters
+              </p>
+              <p>O objetivo do jogo é fugir deles sem atropelar nenhum</p>
+            </>
+          )}
+          {page === 2 && (
+            <>
               <p>Para mudar de faixa, pressione</p>
               <p>
                 <Key>A</Key>, <Key>S</Key>, <Key>D</Key>
@@ -33,7 +42,7 @@ const Tutorial = ({ dismiss }) => {
               <p>Ou toque na parte inferior das faixas</p>
             </>
           )}
-          {page === 2 && (
+          {page === 3 && (
             <>
               <p>Para pausar o jogo, pressione</p>
               <p>
@@ -42,7 +51,7 @@ const Tutorial = ({ dismiss }) => {
               <p>Ou toque no canto superior direito da tela</p>
             </>
           )}
-          {page === 3 && (
+          {page === 4 && (
             <>
               <p>
                 Para utilizar o turbo, assim que ele estiver totalmente
@@ -55,7 +64,7 @@ const Tutorial = ({ dismiss }) => {
             </>
           )}
         </TutorialContent>
-        {page < 3 ? (
+        {page < 4 ? (
           <Arrow onClick={() => setPage(page + 1)}>{'>'}</Arrow>
         ) : (
           <ArrowSpacer />

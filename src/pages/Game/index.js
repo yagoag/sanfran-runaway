@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import car from '../../assets/images/car.png';
-import rock from '../../assets/images/rock-pile.png';
+import hipster from '../../assets/images/hipster.png';
 import GameStart from '../../components/GameStart';
 import GameInfo from '../../components/GameInfo';
 import { setGameStatus } from '../../store/actions';
@@ -150,7 +150,7 @@ const Game = () => {
       {obstacles.map((obstacle, index) => (
         <Obstacle
           key={index}
-          src={rock}
+          src={hipster}
           {...obstacle}
           carPosition={metersRun}
         />
