@@ -2,7 +2,7 @@ import React, { useState, useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import car from '../../assets/images/car.png';
 import rock from '../../assets/images/rock-pile.png';
-import NameInput from '../../components/NameInput';
+import GameStart from '../../components/GameStart';
 import GameInfo from '../../components/GameInfo';
 import { Car, GameScreen, TurboIndicator, Obstacle } from './styles';
 import { setGameStatus } from '../../store/actions';
@@ -125,9 +125,7 @@ const Game = () => {
         <GameInfo metersRun={metersRun} />
       )}
       <TurboIndicator amount={turboFuel} />
-      {status === NOT_STARTED && (
-        <NameInput startRace={() => dispatch(setGameStatus(RUNNING))} />
-      )}
+      {status === NOT_STARTED && <GameStart />}
       {(status === FINISHED || status === CRASHED) && <EndGame />}
       {obstacles.map((obstacle, index) => (
         <Obstacle

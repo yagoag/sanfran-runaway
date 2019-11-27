@@ -29,3 +29,17 @@ export const NameDialog = Styled.div`
     outline: none;
   }
 `;
+
+export const Countdown = Styled.div`
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  top: calc(50vh - 25px);
+  left: calc(50vw - 25px);
+  text-align: center;
+  text-shadow: 2px 2px 0 black;
+  color: white;
+  font-size: 48px;
+`;
