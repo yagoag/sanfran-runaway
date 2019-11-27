@@ -4,7 +4,6 @@ import car from '../../assets/images/car.png';
 import rock from '../../assets/images/rock-pile.png';
 import GameStart from '../../components/GameStart';
 import GameInfo from '../../components/GameInfo';
-import { Car, GameScreen, TurboIndicator, Obstacle } from './styles';
 import { setGameStatus } from '../../store/actions';
 import {
   NOT_STARTED,
@@ -14,6 +13,15 @@ import {
   CRASHED,
 } from '../../store/gameStatus';
 import EndGame from '../../components/EndGame';
+import {
+  Car,
+  GameScreen,
+  TurboIndicator,
+  Obstacle,
+  LaneControlButton,
+  PauseControlButton,
+  TurboControlButton,
+} from './styles';
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -27,9 +35,21 @@ const Game = () => {
   const [obstacles, setObstacles] = useState([]);
 
   const actions = {
-    a: () => setCarLane(0),
-    s: () => setCarLane(1),
-    d: () => setCarLane(2),
+    a: () => {
+      if (status === RUNNING) setCarLane(0);
+    },
+    s: () => {
+      if (status === RUNNING) setCarLane(1);
+    },
+    d: () => {
+      if (status === RUNNING) setCarLane(2);
+    },
+    arrowleft: () => {
+      if (status === RUNNING && carLane > 0) setCarLane(carLane - 1);
+    },
+    arrowright: () => {
+      if (status === RUNNING && carLane < 2) setCarLane(carLane + 1);
+    },
     t: () => {
       if (turboFuel >= 100) {
         setTurboFuel(0);
@@ -87,9 +107,7 @@ const Game = () => {
     status,
     metersRun,
     turboTime,
-    setTurboTime,
     turboFuel,
-    setTurboFuel,
     obstacles,
     carLane,
     dispatch,
@@ -105,7 +123,7 @@ const Game = () => {
     if (status === NOT_STARTED) {
       const newObstacles = [];
       for (let i = 0; i < 20; i++) {
-        // max i can be later increased to make for difficult
+        // max i can be later increased to make more difficult
         const location = Math.floor(1500 + Math.random() * 23500);
         const lane = Math.floor(Math.random() * 3);
         newObstacles.push({ location, lane });
@@ -117,14 +135,16 @@ const Game = () => {
       setTurboFuel(0);
       setTurboTime(0);
     }
-  }, [status, setObstacles]);
+  }, [status]);
 
   return (
     <GameScreen moving={moving}>
       {(status === PAUSED || status === RUNNING) && (
-        <GameInfo metersRun={metersRun} />
+        <>
+          <GameInfo metersRun={metersRun} />
+          <TurboIndicator amount={turboFuel} />
+        </>
       )}
-      <TurboIndicator amount={turboFuel} />
       {status === NOT_STARTED && <GameStart />}
       {(status === FINISHED || status === CRASHED) && <EndGame />}
       {obstacles.map((obstacle, index) => (
@@ -139,6 +159,11 @@ const Game = () => {
         src={car}
         className={carLane === 0 ? 'left' : carLane === 2 ? 'right' : ''}
       />
+      <LaneControlButton onClick={actions.a} lane={0} />
+      <LaneControlButton onClick={actions.s} lane={1} />
+      <LaneControlButton onClick={actions.d} lane={2} />
+      <PauseControlButton onClick={actions.escape} />
+      <TurboControlButton onClick={actions.t} />
     </GameScreen>
   );
 };

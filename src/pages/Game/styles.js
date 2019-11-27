@@ -13,7 +13,7 @@ export const GameScreen = Styled.div`
 export const Car = Styled.img`
   width: 15vw;
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
   left: 40vw;
 
   &.left {
@@ -59,6 +59,27 @@ export const TurboIndicator = Styled.div`
     font-size: 10px;
     color: ${props => (props.amount >= 100 ? '#ffffff' : '#cccccc')};
   }
+`;
+
+const ControlButton = Styled.button`
+  position: absolute;
+  bottom: 0;
+  width: 33vw;
+  height: 33vh;
+`;
+
+export const LaneControlButton = Styled(ControlButton)`
+  left: ${props => `${props.lane * 33}vw`};
+`;
+
+export const PauseControlButton = Styled(ControlButton)`
+  right: 0;
+  top: 0;
+`;
+
+export const TurboControlButton = Styled(ControlButton)`
+  left: 0;
+  top: 0;
 `;
 
 export const Obstacle = Styled.img.attrs(props => ({
