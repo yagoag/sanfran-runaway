@@ -14,6 +14,7 @@ import {
   CRASHED,
 } from '../../store/gameStatus';
 import EndGame from '../../components/EndGame';
+import { LAP_SIZE, TOTAL_LAPS, MIN_OBSTACLE_LOCATION } from '../../gameData';
 import {
   Car,
   GameScreen,
@@ -25,7 +26,6 @@ import {
   LapMark,
 } from './styles';
 
-export const LAP_SIZE = 5000;
 document.addEventListener('touchmove', e => e.preventDefault());
 
 const Game = () => {
@@ -119,7 +119,7 @@ const Game = () => {
   ]);
 
   useEffect(() => {
-    if (Math.floor(metersRun / LAP_SIZE) > 4) {
+    if (Math.floor(metersRun / LAP_SIZE) >= TOTAL_LAPS) {
       dispatch(setGameStatus(FINISHED));
     }
   }, [metersRun, dispatch]);
@@ -129,7 +129,10 @@ const Game = () => {
       const newObstacles = [];
       for (let i = 0; i < 20; i++) {
         // max i can be later increased to make more difficult
-        const location = Math.floor(1500 + Math.random() * 23500);
+        const location = Math.floor(
+          MIN_OBSTACLE_LOCATION +
+            Math.random() * (TOTAL_LAPS * LAP_SIZE - MIN_OBSTACLE_LOCATION),
+        );
         const lane = Math.floor(Math.random() * 3);
         newObstacles.push({ location, lane });
       }

@@ -21,6 +21,7 @@ export const TutorialDialog = Styled.div`
     margin: 0 12px;
     border: none;
     outline: none;
+    cursor: pointer;
   }
 `;
 

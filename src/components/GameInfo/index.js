@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { PAUSED, RUNNING } from '../../store/gameStatus';
 import starCafeLogo from '../../assets/images/star-cafe-logo.png';
+import { LAP_SIZE, TOTAL_LAPS } from '../../gameData';
 import {
   PauseIndicator,
   LapIndicator,
@@ -19,8 +20,8 @@ const GameStatus = ({ metersRun }) => {
       {gameStatus === RUNNING && (
         <>
           <LapIndicator>
-            <LapSymbol src={starCafeLogo} /> {Math.floor(metersRun / 5000)}
-            /5
+            <LapSymbol src={starCafeLogo} />
+            {Math.floor(metersRun / LAP_SIZE)}/{TOTAL_LAPS}
           </LapIndicator>
           <NameIndicator>{playerName}</NameIndicator>
         </>

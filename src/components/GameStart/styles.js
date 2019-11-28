@@ -1,6 +1,6 @@
 import Styled from 'styled-components';
 
-export const NameDialog = Styled.div`
+export const NameDialog = Styled.form`
   background-color: #ffffffdd;
   width: 300px;
   position: absolute;

@@ -1,7 +1,7 @@
 import Styled from 'styled-components';
 import scenario1 from '../../assets/images/scenario-1.png';
 import scenario2 from '../../assets/images/scenario-2.png';
-import { LAP_SIZE } from '.';
+import { LAP_SIZE } from '../../gameData';
 
 export const GameScreen = Styled.div`
   height: 100vh;

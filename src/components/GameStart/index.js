@@ -45,7 +45,7 @@ const GameStart = () => {
         <Tutorial dismiss={() => setTutorialScreen(false)} />
       ) : (
         <>
-          <NameDialog>
+          <NameDialog onSubmit={e => e.preventDefault()}>
             <NameInput
               placeholder="Nome"
               value={name}
@@ -55,7 +55,9 @@ const GameStart = () => {
             {nameError && (
               <NameInputError>Você precisa inserir seu nome</NameInputError>
             )}
-            <button onClick={startCountdown}>Iniciar Corrida</button>
+            <button className="start-race" onClick={startCountdown}>
+              Iniciar Corrida
+            </button>
           </NameDialog>
           <TutorialButton onClick={() => setTutorialScreen(true)}>
             Como Jogar?

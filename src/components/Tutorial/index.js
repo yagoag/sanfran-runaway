@@ -8,6 +8,8 @@ import {
   ArrowSpacer,
 } from './styles';
 
+export const TOTAL_PAGES = 5;
+
 const Tutorial = ({ dismiss }) => {
   const [page, setPage] = useState(1);
 
@@ -15,7 +17,9 @@ const Tutorial = ({ dismiss }) => {
     <TutorialDialog>
       <TutorialContainer>
         {page > 1 ? (
-          <Arrow onClick={() => setPage(page - 1)}>{'<'}</Arrow>
+          <Arrow className="previous-page" onClick={() => setPage(page - 1)}>
+            {'<'}
+          </Arrow>
         ) : (
           <ArrowSpacer />
         )}
@@ -69,13 +73,17 @@ const Tutorial = ({ dismiss }) => {
             </>
           )}
         </TutorialContent>
-        {page < 5 ? (
-          <Arrow onClick={() => setPage(page + 1)}>{'>'}</Arrow>
+        {page < TOTAL_PAGES ? (
+          <Arrow className="next-page" onClick={() => setPage(page + 1)}>
+            {'>'}
+          </Arrow>
         ) : (
           <ArrowSpacer />
         )}
       </TutorialContainer>
-      <button onClick={dismiss}>Entendi</button>
+      <button className="dismiss-tutorial" onClick={dismiss}>
+        Entendi
+      </button>
     </TutorialDialog>
   );
 };
