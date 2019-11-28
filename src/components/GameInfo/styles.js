@@ -19,3 +19,8 @@ export const LapIndicator = Styled(Indicator)`
 export const NameIndicator = Styled(Indicator)`
 top: 72px;
 `;
+
+export const LapSymbol = Styled.img`
+  width: 32px;
+  height: 32px;
+`;

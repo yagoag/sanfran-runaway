@@ -1,7 +1,13 @@
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
-import { PauseIndicator, LapIndicator, NameIndicator } from './styles';
 import { PAUSED, RUNNING } from '../../store/gameStatus';
+import starCafeLogo from '../../assets/images/star-cafe-logo.png';
+import {
+  PauseIndicator,
+  LapIndicator,
+  NameIndicator,
+  LapSymbol,
+} from './styles';
 
 const GameStatus = ({ metersRun }) => {
   const playerName = useSelector(state => state.playerName);
@@ -13,7 +19,8 @@ const GameStatus = ({ metersRun }) => {
       {gameStatus === RUNNING && (
         <>
           <LapIndicator>
-            Volta {Math.floor(metersRun / 5000) + 1}/5
+            <LapSymbol src={starCafeLogo} /> {Math.floor(metersRun / 5000)}
+            /5
           </LapIndicator>
           <NameIndicator>{playerName}</NameIndicator>
         </>

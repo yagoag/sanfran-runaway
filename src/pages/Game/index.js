@@ -21,7 +21,11 @@ import {
   LaneControlButton,
   PauseControlButton,
   TurboControlButton,
+  LapMark,
 } from './styles';
+
+export const LAP_SIZE = 5000;
+document.addEventListener('touchmove', e => e.preventDefault());
 
 const Game = () => {
   const dispatch = useDispatch();
@@ -114,7 +118,7 @@ const Game = () => {
   ]);
 
   useEffect(() => {
-    if (Math.floor(metersRun / 5000) > 4) {
+    if (Math.floor(metersRun / LAP_SIZE) > 4) {
       dispatch(setGameStatus(FINISHED));
     }
   }, [metersRun, dispatch]);
@@ -155,6 +159,7 @@ const Game = () => {
           carPosition={metersRun}
         />
       ))}
+      <LapMark src={starCafe} carPosition={metersRun} />
       <Car
         src={car}
         className={carLane === 0 ? 'left' : carLane === 2 ? 'right' : ''}

@@ -10,6 +10,8 @@ export const TutorialDialog = Styled.div`
   padding: 30px 15px;
   text-align: center;
   z-index: 998;
+  display: flex;
+  flex-direction: column;
 
   & button {
     width: calc(100% - 24px);
@@ -23,6 +25,7 @@ export const TutorialDialog = Styled.div`
 `;
 
 export const TutorialContainer = Styled.div`
+  flex: 1;
   display: flex;
   flex-direction: row;
   margin-bottom: 24px;
@@ -30,6 +33,7 @@ export const TutorialContainer = Styled.div`
 
 export const TutorialContent = Styled.div`
   flex: 1;
+  align-self: center;
 `;
 
 export const Arrow = Styled.div`

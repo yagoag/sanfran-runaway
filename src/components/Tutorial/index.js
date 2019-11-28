@@ -21,15 +21,20 @@ const Tutorial = ({ dismiss }) => {
         )}
         <TutorialContent>
           {page === 1 && (
-            <>
-              <p>
-                Se você conhece um pouco sobre São Francisco sabe que a cidade é
-                cheia de hipsters
-              </p>
-              <p>O objetivo do jogo é fugir deles sem atropelar nenhum</p>
-            </>
+            <p>
+              Se você conhece um pouco sobre São Francisco sabe que a cidade é
+              cheia de hipsters, e não tem nada que um hipster goste mais do que
+              um bom café.
+            </p>
           )}
           {page === 2 && (
+            <p>
+              O objetivo do jogo é encontrar cinco lojas da famosa rede "Star
+              Café" sem atropelar nenhum dos hipsters que andam pela rua com o
+              café da rede na mão.
+            </p>
+          )}
+          {page === 3 && (
             <>
               <p>Para mudar de faixa, pressione</p>
               <p>
@@ -42,7 +47,7 @@ const Tutorial = ({ dismiss }) => {
               <p>Ou toque na parte inferior das faixas</p>
             </>
           )}
-          {page === 3 && (
+          {page === 4 && (
             <>
               <p>Para pausar o jogo, pressione</p>
               <p>
@@ -51,7 +56,7 @@ const Tutorial = ({ dismiss }) => {
               <p>Ou toque no canto superior direito da tela</p>
             </>
           )}
-          {page === 4 && (
+          {page === 5 && (
             <>
               <p>
                 Para utilizar o turbo, assim que ele estiver totalmente
@@ -64,7 +69,7 @@ const Tutorial = ({ dismiss }) => {
             </>
           )}
         </TutorialContent>
-        {page < 4 ? (
+        {page < 5 ? (
           <Arrow onClick={() => setPage(page + 1)}>{'>'}</Arrow>
         ) : (
           <ArrowSpacer />

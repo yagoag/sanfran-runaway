@@ -1,6 +1,7 @@
 import Styled from 'styled-components';
 import scenario1 from '../../assets/images/scenario-1.png';
 import scenario2 from '../../assets/images/scenario-2.png';
+import { LAP_SIZE } from '.';
 
 export const GameScreen = Styled.div`
   height: 100vh;
@@ -88,6 +89,33 @@ export const TurboControlButton = Styled(ControlButton)`
   left: 0;
   top: 0;
 `;
+
+export const LapMark = Styled.img.attrs(props => ({
+  position: Math.floor(props.carPosition % LAP_SIZE) - 4500,
+  side: Math.floor((props.carPosition / LAP_SIZE) % 2),
+}))`
+  height: ${props =>
+    props.position >= 0 && props.position <= 500
+      ? `${10 + props.position / 100}vh`
+      : '0'};
+  position: absolute;
+  top: ${props =>
+    props.position >= 0 &&
+    props.position <= 500 &&
+    `${41 + props.position * 0.02}vh`};
+  right: ${props =>
+    props.side === 1 &&
+    props.position >= 0 &&
+    props.position <= 500 &&
+    `${lapMarkHorizontalLeftPositions[props.position / 100]}vw`};
+  left: ${props =>
+    props.side === 0 &&
+    props.position >= 0 &&
+    props.position <= 500 &&
+    `${lapMarkHorizontalLeftPositions[props.position / 100] - 4}vw`};
+`;
+
+const lapMarkHorizontalLeftPositions = [58, 66, 73, 80, 87, 95];
 
 export const Obstacle = Styled.img.attrs(props => ({
   position: Math.floor((props.location - props.carPosition) / 100),
