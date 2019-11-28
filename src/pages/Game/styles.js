@@ -12,18 +12,18 @@ export const GameScreen = Styled.div`
 `;
 
 export const Car = Styled.img`
-  height: 10vh;
+  height: 15vh;
   position: absolute;
   bottom: 0;
-  left: 40vw;
+  left: calc(50vw - 8vh);
 
   &.left {
-  left: 10vw;
+  left: calc(16vw - 8vh);
   transform: skew(-20deg);
   }
 
   &.right {
-  left: 70vw;
+  left: calc(82vw - 8vh);
   transform: skew(20deg);
   }
 `;
@@ -120,51 +120,58 @@ const lapMarkHorizontalLeftPositions = [58, 66, 73, 80, 87, 95];
 export const Obstacle = Styled.img.attrs(props => ({
   position: Math.floor((props.location - props.carPosition) / 100),
 }))`
-  width: ${props =>
-    props.position <= 6 && props.position >= -2
-      ? `${8 - props.position}vw`
+  height: ${props =>
+    props.position <= 7 && props.position >= -2
+      ? `${12 - props.position}vh`
       : '0'};
-  height: auto;
   position: absolute;
-  left: ${props => `${lanePositionMap[props.lane][props.position]}vw`};
+  left: ${props =>
+    props.position <= 7 &&
+    props.position >= -2 &&
+    `calc(${lanePositionMap[props.lane][props.position]}vw - ${(12 -
+      props.position) /
+      2}vh)`};
   bottom: ${props =>
-    props.position <= 6 && props.position >= -2
-      ? `${(props.position + 2) * 5}vh`
-      : '-20vh'};
+    props.position <= 7 &&
+    props.position >= -2 &&
+    `${(props.position + 2) * 5}vh`};
 `;
 
 const lanePositionMap = {
   0: {
-    '6': 44,
+    '7': 45,
+    '6': 41,
     '5': 38,
-    '4': 30,
-    '3': 24,
-    '2': 18,
-    '1': 13,
-    '0': 8,
-    '-1': 2,
-    '-2': -2,
+    '4': 34,
+    '3': 31,
+    '2': 28,
+    '1': 24,
+    '0': 19,
+    '-1': 14,
+    '-2': 12,
   },
   1: {
-    '6': 47,
-    '5': 46,
-    '4': 46,
-    '3': 46,
-    '2': 45,
-    '1': 44,
-    '0': 43,
-    '-1': 42,
-    '-2': 42,
+    '7': 49,
+    '6': 49,
+    '5': 49.5,
+    '4': 49.5,
+    '3': 50,
+    '2': 50,
+    '1': 50.5,
+    '0': 50.5,
+    '-1': 50.5,
+    '-2': 50.5,
   },
   2: {
-    '6': 51,
-    '5': 55,
-    '4': 60,
-    '3': 66,
-    '2': 71,
-    '1': 75,
-    '0': 80,
-    '-1': 84,
+    '7': 55,
+    '6': 59,
+    '5': 64,
+    '4': 67,
+    '3': 70,
+    '2': 74,
+    '1': 79,
+    '0': 82,
+    '-1': 86,
     '-2': 89,
   },
 };

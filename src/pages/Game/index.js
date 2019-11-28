@@ -2,6 +2,7 @@ import React, { useState, useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import car from '../../assets/images/car.png';
 import hipster from '../../assets/images/hipster.png';
+import starCafe from '../../assets/images/star-cafe.png';
 import GameStart from '../../components/GameStart';
 import GameInfo from '../../components/GameInfo';
 import { setGameStatus } from '../../store/actions';
@@ -94,7 +95,7 @@ const Game = () => {
 
           obstacles.forEach(obst => {
             const pos = Math.floor((obst.location - metersRun) / 100);
-            if (pos <= 0 && pos >= -1 && obst.lane === carLane) {
+            if (pos <= 1 && pos >= -1 && obst.lane === carLane) {
               dispatch(setGameStatus(CRASHED));
             }
           });
