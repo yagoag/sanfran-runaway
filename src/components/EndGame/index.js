@@ -11,7 +11,9 @@ const EndGame = () => {
   return (
     <EndModal>
       <Message>
-        {status === FINISHED ? 'Você chegou!' : 'Você atropelou o hipster :('}
+        {status === FINISHED
+          ? 'Você conseguiu!'
+          : 'Você atropelou o hipster :('}
       </Message>
       <button
         className="play-again"

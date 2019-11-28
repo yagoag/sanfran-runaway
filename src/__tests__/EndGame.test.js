@@ -4,8 +4,9 @@ import { Provider } from 'react-redux';
 import { shallow, mount } from 'enzyme';
 import { INITIAL_STATE } from '../store';
 import EndGame from '../components/EndGame';
-import { CRASHED, FINISHED } from '../store/gameStatus';
+import { CRASHED, FINISHED, NOT_STARTED } from '../store/gameStatus';
 import { Message } from '../components/EndGame/styles';
+import { SET_GAME_STATUS } from '../store/actions';
 
 const mockStore = configureStore([]);
 
@@ -27,7 +28,7 @@ describe('EndGame', () => {
       </Provider>,
     );
 
-    expect(wrapper.find(Message).text()).toBe('Você chegou!');
+    expect(wrapper.find(Message).text()).toBe('Você conseguiu!');
   });
 
   it('shows correct crashed message', () => {
@@ -48,5 +49,19 @@ describe('EndGame', () => {
     );
 
     expect(wrapper.find('.play-again')).toHaveLength(1);
+  });
+
+  it('resets state on play again click', () => {
+    const store = mockStore(INITIAL_STATE);
+    const wrapper = mount(
+      <Provider store={store}>
+        <EndGame />
+      </Provider>,
+    );
+
+    wrapper.find('.play-again').simulate('click');
+    expect(store.getActions()).toEqual([
+      { type: SET_GAME_STATUS, gameStatus: NOT_STARTED },
+    ]);
   });
 });

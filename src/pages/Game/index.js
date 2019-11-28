@@ -14,7 +14,12 @@ import {
   CRASHED,
 } from '../../store/gameStatus';
 import EndGame from '../../components/EndGame';
-import { LAP_SIZE, TOTAL_LAPS, MIN_OBSTACLE_LOCATION } from '../../gameData';
+import {
+  LAP_SIZE,
+  TOTAL_LAPS,
+  MIN_OBSTACLE_LOCATION,
+  NUMBER_OBSTACLES,
+} from '../../gameData';
 import {
   Car,
   GameScreen,
@@ -127,8 +132,7 @@ const Game = () => {
   useEffect(() => {
     if (status === NOT_STARTED) {
       const newObstacles = [];
-      for (let i = 0; i < 20; i++) {
-        // max i can be later increased to make more difficult
+      for (let i = 0; i < NUMBER_OBSTACLES; i++) {
         const location = Math.floor(
           MIN_OBSTACLE_LOCATION +
             Math.random() * (TOTAL_LAPS * LAP_SIZE - MIN_OBSTACLE_LOCATION),
@@ -168,11 +172,23 @@ const Game = () => {
         src={car}
         className={carLane === 0 ? 'left' : carLane === 2 ? 'right' : ''}
       />
-      <LaneControlButton onClick={actions.a} lane={0} />
-      <LaneControlButton onClick={actions.s} lane={1} />
-      <LaneControlButton onClick={actions.d} lane={2} />
-      <PauseControlButton onClick={actions.escape} />
-      <TurboControlButton onClick={actions.t} />
+      <LaneControlButton
+        className="left-lane-control"
+        onClick={actions.a}
+        lane={0}
+      />
+      <LaneControlButton
+        className="middle-lane-control"
+        onClick={actions.s}
+        lane={1}
+      />
+      <LaneControlButton
+        className="right-lane-control"
+        onClick={actions.d}
+        lane={2}
+      />
+      <PauseControlButton className="pause-control" onClick={actions.escape} />
+      <TurboControlButton className="turbo-control" onClick={actions.t} />
     </GameScreen>
   );
 };
