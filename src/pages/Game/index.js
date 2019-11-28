@@ -90,7 +90,7 @@ const Game = () => {
 
           obstacles.forEach(obst => {
             const pos = Math.floor((obst.location - metersRun) / 100);
-            if (pos <= 0 && pos >= -2 && obst.lane === carLane) {
+            if (pos <= 0 && pos >= -1 && obst.lane === carLane) {
               dispatch(setGameStatus(CRASHED));
             }
           });

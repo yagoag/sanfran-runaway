@@ -11,7 +11,7 @@ export const GameScreen = Styled.div`
 `;
 
 export const Car = Styled.img`
-  width: 15vw;
+  height: 10vh;
   position: absolute;
   bottom: 0;
   left: 40vw;
@@ -99,9 +99,9 @@ export const Obstacle = Styled.img.attrs(props => ({
   height: auto;
   position: absolute;
   left: ${props => `${lanePositionMap[props.lane][props.position]}vw`};
-  top: ${props =>
+  bottom: ${props =>
     props.position <= 6 && props.position >= -2
-      ? `${80 - props.position * 5}vh`
+      ? `${(props.position + 2) * 5}vh`
       : '-20vh'};
 `;
 
