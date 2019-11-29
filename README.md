@@ -7,9 +7,9 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/4d79bf52-b817-416b-b72e-a260e3040a7d/deploy-status)](https://app.netlify.com/sites/sanfranrunaway/deploys) | [Informações em Português](/README.pt-BR.md)
 
-You are in San Francisco, the city with the highest number of hipsters per square feet in the world, and everyone know that hipsters love nothing more than a good old cup of coffee.
+You are in San Francisco, the city with the highest number of hipsters per square feet in the world, and everyone knows that hipsters love nothing more than a good ol' cup of coffee.
 
-To win this game, you must find five locations of the famous "Star Café" without running over the hipster going around on the streets holding cups of the store in their hands.
+To win this game, you must find five locations of the famous "Star Café" without running over the hipsters holding cups of the store in their hands.
 
 Play it right now at https://sanfranrunaway.netlify.com
 
@@ -21,12 +21,12 @@ You can also use `npm`, just make sure to delete your `yarn.lock` file, otherwis
 
 ## Testing
 
-To run all test interatively (they will re-run on every change), you can run `yarn test`.
+To run all test in watch mode (they will re-run on every change), you can run `yarn test`.
 
 ## Building
 
-To run a local production build you can run `yarn deploy`. It runs all tests and build the application if they pass. If you want to skip the tests, you can run `yarn build` directly.
+To run a local production build you can run `yarn deploy`. It runs all tests and builds the application if they pass. If you want to skip the tests, you can run `yarn build` directly.
 
-We also have automated build & deployment using Netlify. It automatically runs on every commit that is pushed to `master`.
+The app also has automated build & deployment using Netlify. It runs on every commit that is pushed to `master`.
 
 To check the deployments, [click here](https://app.netlify.com/sites/sanfranrunaway/deploys) or on the build status badge at the top of this Readme.
