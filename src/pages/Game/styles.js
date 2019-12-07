@@ -91,54 +91,67 @@ export const TurboControlButton = Styled(ControlButton)`
 `;
 
 export const LapMark = Styled.img.attrs(props => ({
-  position: Math.floor(props.carPosition % LAP_SIZE) - 4500,
+  position: Math.floor(props.carPosition % LAP_SIZE) - (LAP_SIZE - 1100),
   side: Math.floor((props.carPosition / LAP_SIZE) % 2),
 }))`
   height: ${props =>
-    props.position >= 0 && props.position <= 500
+    props.position >= 0 && props.position <= 1000
       ? `${10 + props.position / 100}vh`
       : '0'};
   position: absolute;
   top: ${props =>
     props.position >= 0 &&
-    props.position <= 500 &&
-    `${41 + props.position * 0.02}vh`};
+    props.position <= 1000 &&
+    `${39 + props.position * 0.02}vh`};
   right: ${props =>
     props.side === 1 &&
     props.position >= 0 &&
-    props.position <= 500 &&
+    props.position <= 1000 &&
     `${lapMarkHorizontalLeftPositions[props.position / 100]}vw`};
   left: ${props =>
     props.side === 0 &&
     props.position >= 0 &&
-    props.position <= 500 &&
-    `${lapMarkHorizontalLeftPositions[props.position / 100] - 4}vw`};
+    props.position <= 1000 &&
+    `${lapMarkHorizontalLeftPositions[props.position / 100]}vw`};
 `;
 
-const lapMarkHorizontalLeftPositions = [58, 66, 73, 80, 87, 95];
+const lapMarkHorizontalLeftPositions = [
+  56,
+  59,
+  63,
+  68,
+  72,
+  76,
+  81,
+  86,
+  90,
+  94,
+  99,
+];
 
 export const Obstacle = Styled.img.attrs(props => ({
   position: Math.floor((props.location - props.carPosition) / 100),
 }))`
   height: ${props =>
-    props.position <= 7 && props.position >= -2
+    props.position <= 8 && props.position >= -2
       ? `${12 - props.position}vh`
       : '0'};
   position: absolute;
   left: ${props =>
-    props.position <= 7 &&
+    props.position <= 8 &&
     props.position >= -2 &&
     `calc(${lanePositionMap[props.lane][props.position]}vw - ${(12 -
       props.position) /
       2}vh)`};
   bottom: ${props =>
-    props.position <= 7 &&
+    props.position <= 8 &&
     props.position >= -2 &&
     `${(props.position + 2) * 5}vh`};
 `;
 
 const lanePositionMap = {
   0: {
+    '8': 47,
     '7': 45,
     '6': 41,
     '5': 38,
@@ -151,27 +164,29 @@ const lanePositionMap = {
     '-2': 12,
   },
   1: {
-    '7': 49,
-    '6': 49,
-    '5': 49.5,
-    '4': 49.5,
-    '3': 50,
-    '2': 50,
-    '1': 50.5,
-    '0': 50.5,
-    '-1': 50.5,
-    '-2': 50.5,
+    '8': 51,
+    '7': 51,
+    '6': 51,
+    '5': 51,
+    '4': 51,
+    '3': 51,
+    '2': 51,
+    '1': 51,
+    '0': 51,
+    '-1': 51,
+    '-2': 51,
   },
   2: {
-    '7': 55,
-    '6': 59,
-    '5': 64,
-    '4': 67,
-    '3': 70,
-    '2': 74,
-    '1': 79,
-    '0': 82,
-    '-1': 86,
-    '-2': 89,
+    '8': 55,
+    '7': 58,
+    '6': 63,
+    '5': 66,
+    '4': 69,
+    '3': 72,
+    '2': 76,
+    '1': 81,
+    '0': 84,
+    '-1': 88,
+    '-2': 91,
   },
 };
