@@ -49,7 +49,7 @@ export const ArrowSpacer = Styled.div`
 `;
 
 export const Key = Styled.span`
-  background-color: #c7c7c7;
-  box-shadow: 2px 2px 0 black;
+  background-color: #b4b4b4;
+  box-shadow: #000000 2px 2px 0;
   padding: 4px 6px;
 `;

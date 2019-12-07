@@ -62,8 +62,10 @@ export const TutorialButton = Styled.button`
   right: 24px;
   width: 200px;
   padding: 8px;
-  background-color: #c7c7c7;
+  background-color: #b4b4b4;
   border: none;
   outline: none;
   z-index: 999;
+  cursor: pointer;
+  box-shadow: #000000 2px 2px 0;
 `;
