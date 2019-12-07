@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 import { setPlayerName, setGameStatus } from '../../store/actions';
 import { RUNNING } from '../../store/gameStatus';
+import Tutorial from '../Tutorial';
+import LanguageChanger from '../LanguageChanger';
 import {
   NameDialog,
   NameInput,
@@ -9,7 +12,6 @@ import {
   Countdown,
   TutorialButton,
 } from './styles';
-import Tutorial from '../Tutorial';
 
 const GameStart = () => {
   const dispatch = useDispatch();
@@ -42,25 +44,35 @@ const GameStart = () => {
       {countdownNum !== null ? (
         <Countdown>{countdownNum}</Countdown>
       ) : tutorialScreen ? (
-        <Tutorial dismiss={() => setTutorialScreen(false)} />
+        <>
+          <LanguageChanger tutorialOpen />
+          <Tutorial dismiss={() => setTutorialScreen(false)} />
+        </>
       ) : (
         <>
           <NameDialog onSubmit={e => e.preventDefault()}>
-            <NameInput
-              placeholder="Nome"
-              value={name}
-              onChange={e => dispatch(setPlayerName(e.target.value))}
-              error={nameError}
-            />
+            <FormattedMessage id="name">
+              {nameTxt => (
+                <NameInput
+                  placeholder={nameTxt}
+                  value={name}
+                  onChange={e => dispatch(setPlayerName(e.target.value))}
+                  error={nameError}
+                />
+              )}
+            </FormattedMessage>
             {nameError && (
-              <NameInputError>Você precisa inserir seu nome</NameInputError>
+              <NameInputError>
+                <FormattedMessage id="insertNameError" />
+              </NameInputError>
             )}
             <button className="start-race" onClick={startCountdown}>
-              Iniciar Corrida
+              <FormattedMessage id="startRace" />
             </button>
           </NameDialog>
+          <LanguageChanger />
           <TutorialButton onClick={() => setTutorialScreen(true)}>
-            Como Jogar?
+            <FormattedMessage id="tutorialTitle" />
           </TutorialButton>
         </>
       )}

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FINISHED, NOT_STARTED } from '../../store/gameStatus';
 import { EndModal, Message } from './styles';
 import { setGameStatus } from '../../store/actions';
+import { FormattedMessage } from 'react-intl';
 
 const EndGame = () => {
   const dispatch = useDispatch();
@@ -11,15 +12,17 @@ const EndGame = () => {
   return (
     <EndModal>
       <Message>
-        {status === FINISHED
-          ? 'Você conseguiu!'
-          : 'Você atropelou o hipster :('}
+        {status === FINISHED ? (
+          <FormattedMessage id="winMessage" />
+        ) : (
+          <FormattedMessage id="loseMessage" />
+        )}
       </Message>
       <button
         className="play-again"
         onClick={() => dispatch(setGameStatus(NOT_STARTED))}
       >
-        Jogar Novamente
+        <FormattedMessage id="playAgain" />
       </button>
     </EndModal>
   );

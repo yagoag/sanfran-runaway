@@ -1,10 +1,11 @@
 import { createStore } from 'redux';
-import { SET_PLAYER_NAME, SET_GAME_STATUS } from './actions';
+import { SET_PLAYER_NAME, SET_GAME_STATUS, SET_LANGUAGE } from './actions';
 import { NOT_STARTED } from './gameStatus';
 
 export const INITIAL_STATE = {
   playerName: '',
   gameStatus: NOT_STARTED,
+  language: 'en-US',
 };
 
 function reducer(state = INITIAL_STATE, action) {
@@ -13,6 +14,8 @@ function reducer(state = INITIAL_STATE, action) {
       return { ...state, playerName: action.playerName };
     case SET_GAME_STATUS:
       return { ...state, gameStatus: action.gameStatus };
+    case SET_LANGUAGE:
+      return { ...state, language: action.language };
     default:
       return state;
   }

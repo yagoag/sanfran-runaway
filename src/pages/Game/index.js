@@ -1,5 +1,6 @@
 import React, { useState, useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { IntlProvider } from 'react-intl';
 import car from '../../assets/images/car.png';
 import hipster from '../../assets/images/hipster.png';
 import starCafe from '../../assets/images/star-cafe.png';
@@ -20,6 +21,7 @@ import {
   MIN_OBSTACLE_LOCATION,
   NUMBER_OBSTACLES,
 } from '../../gameData';
+import messages from '../../i18n/messages';
 import {
   Car,
   GameScreen,
@@ -36,6 +38,7 @@ document.addEventListener('touchmove', e => e.preventDefault());
 const Game = () => {
   const dispatch = useDispatch();
   const status = useSelector(state => state.gameStatus);
+  const lang = useSelector(state => state.language);
 
   const [carLane, setCarLane] = useState(1);
   const [moving, setMoving] = useState(false);
@@ -150,46 +153,51 @@ const Game = () => {
   }, [status]);
 
   return (
-    <GameScreen moving={moving}>
-      {(status === PAUSED || status === RUNNING) && (
-        <>
-          <GameInfo metersRun={metersRun} />
-          <TurboIndicator amount={turboFuel} />
-        </>
-      )}
-      {status === NOT_STARTED && <GameStart />}
-      {(status === FINISHED || status === CRASHED) && <EndGame />}
-      {obstacles.map((obstacle, index) => (
-        <Obstacle
-          key={index}
-          src={hipster}
-          {...obstacle}
-          carPosition={metersRun}
+    <IntlProvider locale={lang} messages={messages[lang]}>
+      <GameScreen moving={moving}>
+        {(status === PAUSED || status === RUNNING) && (
+          <>
+            <GameInfo metersRun={metersRun} />
+            <TurboIndicator amount={turboFuel} />
+          </>
+        )}
+        {status === NOT_STARTED && <GameStart />}
+        {(status === FINISHED || status === CRASHED) && <EndGame />}
+        {obstacles.map((obstacle, index) => (
+          <Obstacle
+            key={index}
+            src={hipster}
+            {...obstacle}
+            carPosition={metersRun}
+          />
+        ))}
+        <LapMark src={starCafe} carPosition={metersRun} />
+        <Car
+          src={car}
+          className={carLane === 0 ? 'left' : carLane === 2 ? 'right' : ''}
         />
-      ))}
-      <LapMark src={starCafe} carPosition={metersRun} />
-      <Car
-        src={car}
-        className={carLane === 0 ? 'left' : carLane === 2 ? 'right' : ''}
-      />
-      <LaneControlButton
-        className="left-lane-control"
-        onClick={actions.a}
-        lane={0}
-      />
-      <LaneControlButton
-        className="middle-lane-control"
-        onClick={actions.s}
-        lane={1}
-      />
-      <LaneControlButton
-        className="right-lane-control"
-        onClick={actions.d}
-        lane={2}
-      />
-      <PauseControlButton className="pause-control" onClick={actions.escape} />
-      <TurboControlButton className="turbo-control" onClick={actions.t} />
-    </GameScreen>
+        <LaneControlButton
+          className="left-lane-control"
+          onClick={actions.a}
+          lane={0}
+        />
+        <LaneControlButton
+          className="middle-lane-control"
+          onClick={actions.s}
+          lane={1}
+        />
+        <LaneControlButton
+          className="right-lane-control"
+          onClick={actions.d}
+          lane={2}
+        />
+        <PauseControlButton
+          className="pause-control"
+          onClick={actions.escape}
+        />
+        <TurboControlButton className="turbo-control" onClick={actions.t} />
+      </GameScreen>
+    </IntlProvider>
   );
 };
 
