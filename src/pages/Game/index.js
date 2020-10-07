@@ -93,7 +93,7 @@ const Game = () => {
     if (status === RUNNING) {
       const changeBg = setInterval(
         () => {
-          setMoving(!moving);
+          setMoving(moving => !moving);
           setMetersRun(metersRun + 100);
           setTurboFuel(Math.min(turboFuel + 1, 100));
 
@@ -115,16 +115,9 @@ const Game = () => {
         clearInterval(changeBg);
       };
     }
-  }, [
-    moving,
-    status,
-    metersRun,
-    turboTime,
-    turboFuel,
-    obstacles,
-    carLane,
-    dispatch,
-  ]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status, metersRun, turboTime, turboFuel, obstacles, dispatch]);
 
   useEffect(() => {
     if (Math.floor(metersRun / LAP_SIZE) >= TOTAL_LAPS) {
