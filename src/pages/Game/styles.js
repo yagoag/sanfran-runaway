@@ -140,9 +140,9 @@ export const Obstacle = Styled.img.attrs(props => ({
   left: ${props =>
     props.position <= 8 &&
     props.position >= -2 &&
-    `calc(${lanePositionMap[props.lane][props.position]}vw - ${(12 -
-      props.position) /
-      2}vh)`};
+    `calc(${lanePositionMap[props.lane][props.position]}vw - ${
+      (12 - props.position) / 2
+    }vh)`};
   bottom: ${props =>
     props.position <= 8 &&
     props.position >= -2 &&
